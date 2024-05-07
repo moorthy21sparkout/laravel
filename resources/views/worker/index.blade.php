@@ -10,6 +10,29 @@
 <body>
     <center>
         <h2>workers</h2>
+        {{-- store the infromation --}}
+        @if (session('success'))
+            <div style="color:green;">
+                {{ session('success') }}
+            </div>
+        @endif
+        {{-- update infromation --}}
+        @if (session('meaasge'))
+            <div style="color:red">
+                {{ session('success') }}
+            </div>
+            {{-- delete infromation     --}}
+        @endif
+        @if (session('delete'))
+            <div style="color:green">
+                {{ session('delete') }}
+            </div>
+        @endif
+        @if (session('not'))
+            <div style='color:red'>
+                {{ session('not') }}
+            </div>
+        @endif
         <div>
             <a href="{{ route('worker.create', ['worker' => $worker]) }}" <div>
                 <div>

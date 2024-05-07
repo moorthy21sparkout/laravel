@@ -9,18 +9,18 @@
 
 <body>
     <center>
-        <h2>Edi the employ informatons</h2>
-        <div>
-            @if ($errors->any())
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <!-- error validation-->
-                        <li>{{ $error }}</li>
-                    @endforeach
 
-                </ul>
-            @endif
-        </div>
+        <h2>Edi the employ informatons</h2>
+        @if (session('success'))
+            <div style="color:green;">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div style="color:red">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('worker.update', ['worker' => $worker]) }}" method="post">
             @csrf
             @method('put')

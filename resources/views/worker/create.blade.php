@@ -10,16 +10,11 @@
 <body>
     <center>
         <h2>create the employ informatons</h2>
-        <div>
-            @if ($errors->any())
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <!-- error validation-->
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-        </div>
+        @if ('error')
+            <div style="color:red">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('worker.store') }}" method="post">
 
             <!-- secure purpose-->
@@ -46,3 +41,4 @@
 </body>
 
 </html>
+
