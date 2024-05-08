@@ -3,6 +3,7 @@
 use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\workercontroller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MemberController;
 
 
 
@@ -18,3 +19,10 @@ Route::put('worker/{worker}/update', [workercontroller::class, 'update'])->name(
 Route::delete('worker/{worker}/destroy', [workercontroller::class, 'destroy'])->name('worker.destroy');
 
 Route::resource('product',productcontroller::class);
+Route::get('user/{name}',function($name){
+    return view('user',['name'=>$name]);
+});
+Route::get('user/{name}',function($name){
+    return view('user',compact('name'));
+});
+Route::get('index',[MemberController::class,'index']);

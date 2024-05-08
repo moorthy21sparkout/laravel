@@ -15,7 +15,7 @@
             </div>
         @endif
                 <a href="{{ route('product.index') }}" class="btn btn-danger float-end">Back !</a>
-                <form action="{{ route('product.update', '$data->id') }}" method="post">
+                <form action="{{ route('product.update', ['product'=>$data->id]) }}" method="post">
                     @csrf
                     @method('put')
                     <div class="mb-3">

@@ -32,7 +32,7 @@ class productcontroller extends Controller
     public function store(Request $request)
     {
         try{
-            $data=$request->validate([
+            $request->validate([
                  'name'=>'Required|string',
                  'price'=>'Required',
                  
@@ -57,7 +57,8 @@ class productcontroller extends Controller
      */
     public function edit(product $product)
     {
-        return view('product.edit',['data'=>$product]);
+       $data=product::find($product->id);
+       return view('product.edit',compact('data'));
     }
 
     /**
@@ -67,12 +68,13 @@ class productcontroller extends Controller
     {
         //check the error condition
        try{
-       $data=$request->validate([
+      $request->validate([
             'name'=>'Required|string',
             'price'=>'Required',
             
         ]);
-        product::create($request->all());
+        product::find($id)->update(request()->all());   
+        
         return redirect("product")->with("success","update successfully");
     }catch(Exception $e){
         return redirect("product")->with('error',$e->getMessage());

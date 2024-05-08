@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2>Add the data</h2><br><br>
-                <form action="{{route('product.store')}}" method="post">
+                <form action="{{route('product.store',)}}" method="post">
                 @csrf
                     <div class="mb-3">
                         <label >Product Name:</label>
