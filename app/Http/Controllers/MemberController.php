@@ -16,6 +16,8 @@ class MemberController extends Controller
     $member->email="m@gmail.com";
     $member->address="india";
     $member->save();
+    
 
  }
+
 }
