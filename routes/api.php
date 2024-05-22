@@ -20,8 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 // Route::view('new','firstpage');
 //Route::get('list/{id}',[DeviceController::class,'getlist']);
-Route::get('list/{id?}',[DeviceController::class,'getlist']);
+Route::get('list',[DeviceController::class,'getlist']);
 Route::post('store',[DeviceController::class,'store']);
 Route::put('update',[DeviceController::class,'update']);
 Route::delete('delete/{id}',[DeviceController::class,'delete']);
 Route::get('search/{name}',[DeviceController::class,'search']);
+Route::post('check',[DeviceController::class,'testdata']);

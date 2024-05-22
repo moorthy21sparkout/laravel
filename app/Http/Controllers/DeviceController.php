@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\phone;
 use Egulias\EmailValidator\Result\ValidEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DeviceController extends Controller
 {
@@ -13,11 +15,13 @@ class DeviceController extends Controller
     //     return Device::find($id);
     //    }
     // opptional result
-    function getlist($id = null)
+    function getlist()
     {
         // If an ID is provided, find and return the specific device by ID.
         // Otherwise, return all devices.
-        return $id ? Device::find($id) : Device::all();
+        // return $id ? Device::find($id) : Device::all();
+        // return [[Device::all()],[phone::all()]];
+        return Http::get('http://192.168.1.199/data');
     }
     function store(Request $request)
     {
@@ -43,6 +47,7 @@ class DeviceController extends Controller
             return ["result"=>"sorry..! data not be update"];
         }
     }
+    //delete the data from the database ->response with id 
     function delete($id)
     {
         $device=Device::find($id);
@@ -55,7 +60,22 @@ class DeviceController extends Controller
         }
 
     }
+    //search the data in database
     function search($name){
         return Device::where("name",$name)->get();
+    }
+    //validate the data 
+    function testdata(Request $request){
+        $valide=$request->validate([
+            'name'=>'required|string',
+            'age'=>'required',
+        ]);
+        $data=[
+            'staus'=>'successfully',
+            'message'=>'validate is successfully',
+            'data'=>$valide
+        ];
+        return response()->json($data);
+        //return "hello everyone";
     }
 }

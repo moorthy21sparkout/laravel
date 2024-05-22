@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\UplodeImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +32,7 @@ Route::get('/', function () {
 // Route::view('first','firstpage');
 // Route::view('secound','secoundpage');
 // Route::view('third','thirdpage');
+Route::get('list',[MemberController::class,'list']);
+Route::get('uplode',[UplodeImageController::class,'UplodeForm'])->name('uplode.form');
+Route::get('insert',[UplodeImageController::class,'insertForm'])->name('insert.form');
 
