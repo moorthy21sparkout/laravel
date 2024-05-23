@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\UplodeImageController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserAuth;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +36,20 @@ Route::get('/', function () {
 // Route::view('secound','secoundpage');
 // Route::view('third','thirdpage');
 Route::get('list',[MemberController::class,'list']);
-Route::get('uplode',[UplodeImageController::class,'UplodeForm'])->name('uplode.form');
-Route::get('insert',[UplodeImageController::class,'insertForm'])->name('insert.form');
+Route::get('upload',function(){
+    return view('file-upload');
+})->name('file.uplode.form');
+Route::post('fileupload',[FileUploadController::class,'store'])->name('file.upload');
 
+Route::get('file/show',[FileUploadController::class,'show']);
+Route::get('index',[PageController::class,'index']);
+Route::get('about',[PageController::class,'about']);
+Route::view('login','login');
+Route::view('profile','profile');
+Route::post('user',[UserAuth::class,'UserLogin']);
+Route::get('logout',function(){
+    if(session()->has('user')){
+        session()->pull('user');
+    }
+    return redirect('login');
+});
