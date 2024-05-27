@@ -49,6 +49,7 @@
             border: none;
             border-radius: 4px;
             cursor:no-drop;
+        }
     </style>
 </head>
 
@@ -59,9 +60,9 @@
             @csrf
             <label>enter the name</label>
             <div>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="{{old("name")}}">
                 @error('name')
-                    <div class="error-message" style="color: red">
+                    <div class="error-message" style="color: red" >
                         {{ $message }}
                     </div>
                 @enderror
@@ -69,7 +70,7 @@
             <br><br>
             <div>
                 <label>enter the email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" value="{{old("email")}}">
                 @error('email')
                     <div class="error-message" style="color: red">
                         {{ $message }}
@@ -79,7 +80,7 @@
             <br><br>
             <div>
                 <label>enter the age</label>
-                <input type="text" name="age" id="age">
+                <input type="text" name="age" id="age" value="{{old("age")}}">
                 @error('age')
                     <div class="error-message" style="color: red">
                         {{ $message }}

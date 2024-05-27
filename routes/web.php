@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddMemberController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegsisterController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PageController;
@@ -104,3 +106,12 @@ Route::get('name1', function (Request $request) {
 Route::view('form', 'user');
 Route::post('validate',[UserController::class,'user']);
 
+
+Route::view('regsister','auth.regsister');
+Route::post('store',[RegsisterController::class,'store']);
+Route::view('home','home');
+
+Route::view('login','auth.login');
+Route::post('authendication',[LoginController::class,'authendication']);
+
+Route::get('logout',[LoginController::class,'logout']);
