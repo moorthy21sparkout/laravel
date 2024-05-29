@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isKalai',function($user){
+            $user->name == 'kalai';
+        });
     }
 }

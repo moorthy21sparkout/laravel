@@ -1,11 +1,15 @@
 <?php
 
+use App\Exceptions\CustomExeception;
+use App\Exceptions\Handler;
 use App\Http\Controllers\AddMemberController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegsisterController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -109,9 +113,28 @@ Route::post('validate',[UserController::class,'user']);
 
 Route::view('regsister','auth.regsister');
 Route::post('store',[RegsisterController::class,'store']);
-Route::view('home','home');
+Route::view('home','home')->middleware("can:");
 
 Route::view('login','auth.login');
 Route::post('authendication',[LoginController::class,'authendication']);
 
 Route::get('logout',[LoginController::class,'logout']);
+
+
+// {config error page}
+
+Route::view('page','errors.404');  
+
+// {handling Exeception}
+
+Route::get('in',[OrderController::class,'index']);
+
+Route::get('test',[CustomExeception::class,'test']);
+
+
+// Route::get('event',[TestController@test,'test']);
+
+Route::view('main','event.index');
+//Route::get('event', 'TestController@index');
+
+Route::post('event',[TestController::class,'test'])->name('event.index');
