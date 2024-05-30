@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Models\Member;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +18,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->call(function(){
+        //     Log::info('schedule is started');
+        //    $deleted= Member::whereNotNull('email')->delete();
+        //     Log::info('delete operation is completed,this is ' .$deleted. ' deleted in members');
+        // })->everyMinute();
+
+
+        $schedule->command('laravel:send')
+                ->everyMinute()
+                ->emailOutputTo('moorthyponnusamy2019@gmail.com');
     }
 
     /**
@@ -25,7 +37,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

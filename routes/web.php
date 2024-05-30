@@ -5,6 +5,7 @@ use App\Exceptions\Handler;
 use App\Http\Controllers\AddMemberController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegsisterController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
@@ -12,11 +13,17 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\UserController;
+use App\Mail\FirstMail;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,33 +115,60 @@ Route::get('name1', function (Request $request) {
     return "hello $name";
 });
 Route::view('form', 'user');
-Route::post('validate',[UserController::class,'user']);
+Route::post('validate', [UserController::class, 'user']);
 
 
-Route::view('regsister','auth.regsister');
-Route::post('store',[RegsisterController::class,'store']);
-Route::view('home','home')->middleware("can:");
+Route::view('regsister', 'auth.regsister');
+Route::post('store', [RegsisterController::class, 'store']);
+Route::view('home', 'home')->middleware("can:");
 
-Route::view('login','auth.login');
-Route::post('authendication',[LoginController::class,'authendication']);
+Route::view('login', 'auth.login');
+Route::post('authendication', [LoginController::class, 'authendication']);
 
-Route::get('logout',[LoginController::class,'logout']);
+Route::get('logout', [LoginController::class, 'logout']);
 
 
 // {config error page}
 
-Route::view('page','errors.404');  
+Route::view('page', 'errors.404');
 
 // {handling Exeception}
 
-Route::get('in',[OrderController::class,'index']);
+Route::get('in', [OrderController::class, 'index']);
 
-Route::get('test',[CustomExeception::class,'test']);
+Route::get('test', [CustomExeception::class, 'test']);
 
 
 // Route::get('event',[TestController@test,'test']);
 
-Route::view('main','event.index');
+Route::view('main', 'event.index');
 //Route::get('event', 'TestController@index');
 
-Route::post('event',[TestController::class,'test'])->name('event.index');
+Route::post('event', [TestController::class, 'test'])->name('event.index');
+
+
+// {Schedule}
+
+// Route::get('schedule', function () {
+//     Log::info('schedule is started');
+//     Member::where('email')->delete();
+//     Log::info('deleted opration is completed');
+//     return view('welcome');
+// });
+
+Route::get('schedule',function(){
+    $filepath=storage_path('log/laravel.log');
+    if(File::exists($filepath)){
+        dd($filepath);
+        return "true";
+    }else{
+        return response('not found',404);
+    }
+});
+
+Route::get('send-mail',[EmailController::class,'wellcomemail']);
+
+Route::get('first-mail',function(){
+    Mail::to('mo@gmail.com')->send(new FirstMail());
+    return new FirstMail;
+});
