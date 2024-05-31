@@ -5,11 +5,13 @@ use App\Exceptions\Handler;
 use App\Http\Controllers\AddMemberController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegsisterController;
+use App\Http\Controllers\DelayController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\UserController;
@@ -172,3 +174,16 @@ Route::get('first-mail',function(){
     Mail::to('mo@gmail.com')->send(new FirstMail());
     return new FirstMail;
 });
+
+
+//{Queue in mail}
+
+Route::get('queue',[SendMailController::class,'index']);
+
+//{delay message}
+
+Route::get("delay",[DelayController::class,'delay']);
+
+
+Route::view('check', 'check');
+

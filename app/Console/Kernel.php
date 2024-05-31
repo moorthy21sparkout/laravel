@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
         //     Log::info('schedule is started');
         //    $deleted= Member::whereNotNull('email')->delete();
         //     Log::info('delete operation is completed,this is ' .$deleted. ' deleted in members');
-        // })->everyMinute();
+        // })->cron(0 * 1 * 2);
 
 
         $schedule->command('laravel:send')
