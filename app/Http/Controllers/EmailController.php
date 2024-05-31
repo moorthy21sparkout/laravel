@@ -17,7 +17,7 @@ class EmailController extends Controller
         தமிழர் பண்பாடு மற்றும் மரபுகள்: தமிழர் உணவு, ஆடை, விழாக்கோலம், இசை மற்றும் நடனம் போன்ற பண்பாடு மற்றும் மரபுகள்.
         
         தமிழ்நாட்டு முக்கிய இடங்கள்: மாமல்லபுரம், மதுரை மீனாட்சியம்மன் கோவில், காஞ்சிபுரம், திருச்சி ராகுசித்திரம் மற்றும் குமரிக்கண்டம் போன்ற சுற்றுலா இடங்கள்";
-        $subject="Tamil Content";
+        $subject=  "Tamil Content";
         $attech=storage_path('app\new-laravel-project\public\uploads\g3elgUVCYcFa88iepNOpy3Mnr4q7ge6vcWKFZfMx.jpg');
         Mail::to($tomail)->send(new WellcomeMail($message, $subject,$attech));
         dd("mail send successfully");
