@@ -16,7 +16,10 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\UserController;
 use App\Mail\FirstMail;
+use App\Models\Comment;
 use App\Models\Member;
+use App\Models\Post;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Auth\Events\Logout;
@@ -187,3 +190,28 @@ Route::get("delay",[DelayController::class,'delay']);
 
 Route::view('check', 'check');
 
+
+// {polimorphic}
+
+Route::get('poli',function(){
+    $post=Post::find(1);
+    $comment=new Comment;
+    $comment->body="hi bro this is good post";
+    $post->comments()->save($comment);
+
+
+    $video=Video::find(1);
+    $comment=new comment;
+    $comment->body="hi bro this is the nice video";
+    $video->comments()->save($comment);
+
+    return " Post and Video Comment is Created";
+});
+
+
+//{collection}
+
+Route::get('avg',function(){
+    $data=[12,3,23];
+    return collect($data)->average();
+});

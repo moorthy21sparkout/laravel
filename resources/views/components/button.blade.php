@@ -11,8 +11,6 @@
         <label for="">password</label>
         <input type="password" name="password">
     </div>
-        <x-link type="error" message="$message" class="mt-4" />    
+    <x-link type="error" message="$message" class="mt-4" />
 </div>
-<h2>{{$name}}</h2>
-
-
+<h2>{{ $name }}</h2>
