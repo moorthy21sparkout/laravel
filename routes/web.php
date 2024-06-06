@@ -2,6 +2,9 @@
 
 use App\Exceptions\CustomExeception;
 use App\Exceptions\Handler;
+
+use App\Facades\test;
+use App\Facades\testing;
 use App\Http\Controllers\AddMemberController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegsisterController;
@@ -22,12 +25,12 @@ use App\Models\Post;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Auth\Events\Logout;
-use Illuminate\Console\Scheduling\Schedule;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -42,6 +45,7 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 Route::get('month/{num}', function ($num) {
@@ -161,19 +165,19 @@ Route::post('event', [TestController::class, 'test'])->name('event.index');
 //     return view('welcome');
 // });
 
-Route::get('schedule',function(){
-    $filepath=storage_path('log/laravel.log');
-    if(File::exists($filepath)){
+Route::get('schedule', function () {
+    $filepath = storage_path('log/laravel.log');
+    if (File::exists($filepath)) {
         dd($filepath);
         return "true";
-    }else{
-        return response('not found',404);
+    } else {
+        return response('not found', 404);
     }
 });
 
-Route::get('send-mail',[EmailController::class,'wellcomemail']);
+Route::get('send-mail', [EmailController::class, 'wellcomemail']);
 
-Route::get('first-mail',function(){
+Route::get('first-mail', function () {
     Mail::to('mo@gmail.com')->send(new FirstMail());
     return new FirstMail;
 });
@@ -181,11 +185,11 @@ Route::get('first-mail',function(){
 
 //{Queue in mail}
 
-Route::get('queue',[SendMailController::class,'index']);
+Route::get('queue', [SendMailController::class, 'index']);
 
 //{delay message}
 
-Route::get("delay",[DelayController::class,'delay']);
+Route::get("delay", [DelayController::class, 'delay']);
 
 
 Route::view('check', 'check');
@@ -193,16 +197,16 @@ Route::view('check', 'check');
 
 // {polimorphic}
 
-Route::get('poli',function(){
-    $post=Post::find(1);
-    $comment=new Comment;
-    $comment->body="hi bro this is good post";
+Route::get('poli', function () {
+    $post = Post::find(1);
+    $comment = new Comment;
+    $comment->body = "hi bro this is good post";
     $post->comments()->save($comment);
 
 
-    $video=Video::find(1);
-    $comment=new comment;
-    $comment->body="hi bro this is the nice video";
+    $video = Video::find(1);
+    $comment = new comment;
+    $comment->body = "hi bro this is the nice video";
     $video->comments()->save($comment);
 
     return " Post and Video Comment is Created";
@@ -211,7 +215,12 @@ Route::get('poli',function(){
 
 //{collection}
 
-Route::get('avg',function(){
-    $data=[12,3,23];
+Route::get('avg', function () {
+    $data = [12, 3, 23];
     return collect($data)->average();
+});
+
+
+Route::get('/test-facade',function(){
+  dd( testing::testMsg());
 });
