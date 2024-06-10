@@ -19,10 +19,12 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\UserController;
 use App\Mail\FirstMail;
+
 use App\Models\Comment;
 use App\Models\Member;
 use App\Models\Post;
 use App\Models\Video;
+use App\Notifications\NewVisit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -32,6 +34,8 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Mail;
+
+use App\Models\CheckNotification; 
 
 /*
 |--------------------------------------------------------------------------
@@ -224,3 +228,9 @@ Route::get('avg', function () {
 Route::get('/test-facade',function(){
   dd( testing::testMsg());
 });
+
+Route::get('notify', function () {
+    $user =CheckNotification::first();
+    $user->notify(new Newvisit("A new user has visited on your application."));
+       dd("working Good");
+    });
