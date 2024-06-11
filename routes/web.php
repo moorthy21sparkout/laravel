@@ -8,6 +8,7 @@ use App\Facades\testing;
 use App\Http\Controllers\AddMemberController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegsisterController;
+use App\Http\Controllers\CacheUserController;
 use App\Http\Controllers\DelayController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploadController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\TestAuth_Book_Controller;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\UserController;
@@ -234,3 +236,8 @@ Route::get('notify', function () {
     $user->notify(new Newvisit("A new user has visited on your application."));
        dd("working Good");
     });
+
+Route::get('cacheuser',[CacheUserController::class,'index']);    
+Route::get('cacheuser1',[CacheUserController::class,'storecache']);    
+
+Route::get('testauth',[TestAuth_Book_Controller::class,'testauth']);
