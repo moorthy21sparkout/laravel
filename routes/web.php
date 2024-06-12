@@ -9,6 +9,7 @@ use App\Http\Controllers\AddMemberController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegsisterController;
 use App\Http\Controllers\CacheUserController;
+use App\Http\Controllers\CountController;
 use App\Http\Controllers\DelayController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploadController;
@@ -241,3 +242,7 @@ Route::get('cacheuser',[CacheUserController::class,'index']);
 Route::get('cacheuser1',[CacheUserController::class,'storecache']);    
 
 Route::get('testauth',[TestAuth_Book_Controller::class,'testauth']);
+
+Route::get('collect_each',[CountController::class,'index_each']);
+Route::get('collect_map',[CountController::class,'index_map']);
+Route::get('collect_filter',[CountController::class,'index_filter']);
